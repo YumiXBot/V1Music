@@ -5,49 +5,52 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import config
 
 
-def start_pannel(_, BOT_USERNAME):
+def start_pannel(_, BOT_USERNAME, OWNER: Union[bool, int] = None):
     buttons = [
         [
             InlineKeyboardButton(
-                text="Aᴅᴅ ᴍᴇ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ",
-                url=f"https://t.me/{BOT_USERNAME}?startgroup=new",
+                text=" Aᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ⛦",
+                url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
             )
         ],
         [
-            InlineKeyboardButton(text="Cᴏᴍᴍᴀɴᴅs", callback_data="settings_back_helper"),
-            InlineKeyboardButton(text="Sᴏᴜʀᴄᴇ", url=config.GITHUB_REPO),
+            InlineKeyboardButton(
+                text=" Hᴇʟᴩ ",
+                callback_data="settings_back_helper"
+            ),
+            InlineKeyboardButton(
+                text=" Sᴇᴛᴛɪɴɢs ", callback_data="settings_helper"
+            ),
         ],
-        ]
+     ]
     return buttons
+
 
 def private_panel(_, BOT_USERNAME, OWNER: Union[bool, int] = None):
     buttons = [
         [
             InlineKeyboardButton(
-                text="Aᴅᴅ ᴍᴇ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ",
-                url=f"https://t.me/{BOT_USERNAME}?startgroup=new",
+                text="+ Aᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ +",
+                url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
             )
         ],
         [
-            InlineKeyboardButton(text="Hᴇʟᴘ & Cᴏᴍᴍᴀɴᴅꜱ", callback_data="settings_back_helper"),
+            InlineKeyboardButton(
+                text="Hᴇʟᴩ", callback_data="settings_back_helper"
+            )
         ],
         [
-            InlineKeyboardButton(text="Dᴇᴠᴇʟᴏᴘᴇʀ", user_id=OWNER),
-            InlineKeyboardButton(text="Sᴜᴘᴘᴏʀᴛ", url=config.SUPPORT_GROUP),
+            InlineKeyboardButton(
+                text="Sᴜᴩᴩᴏʀᴛ", url=config.SUPPORT_GROUP
+            ),
+            InlineKeyboardButton(
+                text="Oᴡɴᴇʀ", user_id=OWNER
+            )
         ],
         [
-            InlineKeyboardButton(text="Cʜᴀɴɴᴇʟ", url=config.SUPPORT_CHANNEL),
-            InlineKeyboardButton(text="Sᴏᴜʀᴄᴇ ᴄᴏᴅᴇ", url=config.GITHUB_REPO),
+            InlineKeyboardButton(
+                text="[❄️] Iɴᴛʀᴏᴅᴜᴄᴛɪᴏɴ [❄️]", url=config.GITHUB_REPO
+            )
         ],
-    ]
+     ]
     return buttons
-
-close_key = InlineKeyboardMarkup(
-            [
-                [
-                    InlineKeyboardButton(
-                        text="✯ ᴄʟᴏsᴇ ✯", callback_data="close"
-                    )
-                ]
-            ]
-        )
