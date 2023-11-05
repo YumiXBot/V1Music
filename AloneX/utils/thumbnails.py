@@ -26,7 +26,7 @@ def add_corners(im):
     bigsize = (im.size[0] * 3, im.size[1] * 3)
     mask = Image.new("L", bigsize, 0)
     ImageDraw.Draw(mask).ellipse((0, 0) + bigsize, fill=255)
-    mask = mask.resize(im.size, Image.LANCZOS)
+    mask = mask.resize(im.size, Image.ANTIALIAS)
     mask = ImageChops.darker(mask, im.split()[-1])
     im.putalpha(mask)
 
@@ -50,13 +50,13 @@ async def gen_thumb(videoid, user_id):
                 duration = "Unknown"
             thumbnail = result["thumbnails"][0]["url"].split("?")[0]
             try:
-                views = result["viewCount"]["short"]
+                result["viewCount"]["short"]
             except:
-                views = "Unknown Views"
+                pass
             try:
-                channel = result["channel"]["name"]
+                result["channel"]["name"]
             except:
-                channel = "Unknown Channel"
+                pass
 
         async with aiohttp.ClientSession() as session:
             async with session.get(thumbnail) as resp:
@@ -79,13 +79,13 @@ async def gen_thumb(videoid, user_id):
         d = np.array(a)
         e = np.dstack((c, d))
         f = Image.fromarray(e)
-        x = f.resize((1, 1))
+        x = f.resize((107, 107))
 
         youtube = Image.open(f"cache/thumb{videoid}.png")
-        bg = Image.open(f"AloneX/assets/alonex.png")
+        bg = Image.open(f"AloneX/assets/AloneX.png")
         image1 = changeImageSize(1280, 720, youtube)
         image2 = image1.convert("RGBA")
-        background = image2.filter(filter=ImageFilter.BoxBlur(20))
+        background = image2.filter(filter=ImageFilter.BoxBlur(30))
         enhancer = ImageEnhance.Brightness(background)
         background = enhancer.enhance(0.6)
 
@@ -100,7 +100,7 @@ async def gen_thumb(videoid, user_id):
         x2 = Xcenter + 250
         y2 = Ycenter + 250
         logo = youtube.crop((x1, y1, x2, y2))
-        logo.thumbnail((520, 520), Image.LANCZOS)
+        logo.thumbnail((520, 520), Image.ANTIALIAS)
         logo.save(f"cache/chop{videoid}.png")
         if not os.path.isfile(f"cache/cropped{videoid}.png"):
             im = Image.open(f"cache/chop{videoid}.png").convert("RGBA")
@@ -109,52 +109,54 @@ async def gen_thumb(videoid, user_id):
 
         crop_img = Image.open(f"cache/cropped{videoid}.png")
         logo = crop_img.convert("RGBA")
-        logo.thumbnail((400, 400), Image.LANCZOS)
-        width = int((1280 - 400) / 14)
+        logo.thumbnail((365, 365), Image.ANTIALIAS)
+        width = int((1280 - 365) / 2)
         background = Image.open(f"cache/temp{videoid}.png")
-        background.paste(logo, (width + 2, 150), mask=logo)
-        background.paste(x, (10500, 250), mask=x)
+        background.paste(logo, (width + 2, 138), mask=logo)
+        background.paste(x, (710, 427), mask=x)
         background.paste(image3, (0, 0), mask=image3)
 
         draw = ImageDraw.Draw(background)
-        font = ImageFont.truetype("AloneX/assets/font2.ttf", 40)
+        font = ImageFont.truetype("AloneX/assets/font2.ttf", 45)
         ImageFont.truetype("AloneX/assets/font2.ttf", 70)
         arial = ImageFont.truetype("AloneX/assets/font2.ttf", 30)
         ImageFont.truetype("AloneX/assets/font.ttf", 30)
         para = textwrap.wrap(title, width=32)
         try:
             draw.text(
-                (550, 326),
-            f"{channel} | {views[:23]}",
-            (255, 255, 255),
-            font=arial,
+                (450, 25),
+                f"ALONE PLAYING",
+                fill="white",
+                stroke_width=3,
+                stroke_fill="green",
+                font=font,
             )
             if para[0]:
                 text_w, text_h = draw.textsize(f"{para[0]}", font=font)
                 draw.text(
-                    ((1280 - 740) / 1, 228),
+                    ((1280 - text_w) / 2, 530),
                     f"{para[0]}",
                     fill="white",
                     stroke_width=1,
-                    stroke_fill="white",
+                    stroke_fill="green",
                     font=font,
                 )
             if para[1]:
                 text_w, text_h = draw.textsize(f"{para[1]}", font=font)
                 draw.text(
-                    ((1280 - 740) / 1, 268),
+                    ((1280 - text_w) / 2, 580),
                     f"{para[1]}",
                     fill="white",
                     stroke_width=1,
-                    stroke_fill="white",
+                    stroke_fill="green",
                     font=font,
                 )
         except:
             pass
         text_w, text_h = draw.textsize(f"Duration: {duration} Mins", font=arial)
         draw.text(
-            ((1280 - 190) / 1, 400),
-            f"             {duration} ",
+            ((1280 - text_w) / 2, 660),
+            f"Duration: {duration} Mins",
             fill="white",
             font=arial,
         )
@@ -188,13 +190,13 @@ async def gen_qthumb(videoid, user_id):
                 duration = "Unknown"
             thumbnail = result["thumbnails"][0]["url"].split("?")[0]
             try:
-                views = result["viewCount"]["short"]
+                result["viewCount"]["short"]
             except:
-                views = "Unknown Views"
+                pass
             try:
-                channel = result["channel"]["name"]
+                result["channel"]["name"]
             except:
-                channel = "Unknown Channel"
+                pass
 
         async with aiohttp.ClientSession() as session:
             async with session.get(thumbnail) as resp:
@@ -217,13 +219,13 @@ async def gen_qthumb(videoid, user_id):
         d = np.array(a)
         e = np.dstack((c, d))
         f = Image.fromarray(e)
-        x = f.resize((1, 1))
+        x = f.resize((107, 107))
 
         youtube = Image.open(f"cache/thumb{videoid}.png")
-        bg = Image.open(f"AloneX/assets/alonex.png")
+        bg = Image.open(f"AloneX/assets/AloneX.png")
         image1 = changeImageSize(1280, 720, youtube)
         image2 = image1.convert("RGBA")
-        background = image2.filter(filter=ImageFilter.BoxBlur(10))
+        background = image2.filter(filter=ImageFilter.BoxBlur(30))
         enhancer = ImageEnhance.Brightness(background)
         background = enhancer.enhance(0.6)
 
@@ -238,7 +240,7 @@ async def gen_qthumb(videoid, user_id):
         x2 = Xcenter + 250
         y2 = Ycenter + 250
         logo = youtube.crop((x1, y1, x2, y2))
-        logo.thumbnail((520, 520), Image.LANCZOS)
+        logo.thumbnail((520, 520), Image.ANTIALIAS)
         logo.save(f"cache/chop{videoid}.png")
         if not os.path.isfile(f"cache/cropped{videoid}.png"):
             im = Image.open(f"cache/chop{videoid}.png").convert("RGBA")
@@ -247,52 +249,54 @@ async def gen_qthumb(videoid, user_id):
 
         crop_img = Image.open(f"cache/cropped{videoid}.png")
         logo = crop_img.convert("RGBA")
-        logo.thumbnail((400, 400), Image.LANCZOS)
-        width = int((1280 - 400) / 14)
+        logo.thumbnail((365, 365), Image.ANTIALIAS)
+        width = int((1280 - 365) / 2)
         background = Image.open(f"cache/temp{videoid}.png")
-        background.paste(logo, (width + 2, 150), mask=logo)
-        background.paste(x, (10500, 250), mask=x)
+        background.paste(logo, (width + 2, 138), mask=logo)
+        background.paste(x, (710, 427), mask=x)
         background.paste(image3, (0, 0), mask=image3)
 
         draw = ImageDraw.Draw(background)
-        font = ImageFont.truetype("AloneX/assets/font2.ttf", 40)
+        font = ImageFont.truetype("AloneX/assets/font2.ttf", 45)
         ImageFont.truetype("AloneX/assets/font2.ttf", 70)
         arial = ImageFont.truetype("AloneX/assets/font2.ttf", 30)
         ImageFont.truetype("AloneX/assets/font.ttf", 30)
         para = textwrap.wrap(title, width=32)
         try:
             draw.text(
-            (550, 326),
-            f"{channel} | {views[:23]}",
-            (255, 255, 255),
-            font=arial,
+                (455, 25),
+                "ADDED TO QUEUE",
+                fill="white",
+                stroke_width=5,
+                stroke_fill="green",
+                font=font,
             )
             if para[0]:
                 text_w, text_h = draw.textsize(f"{para[0]}", font=font)
                 draw.text(
-                    ((1280 - 740) / 1, 228),
+                    ((1280 - text_w) / 2, 530),
                     f"{para[0]}",
                     fill="white",
                     stroke_width=1,
-                    stroke_fill="white",
+                    stroke_fill="green",
                     font=font,
                 )
             if para[1]:
                 text_w, text_h = draw.textsize(f"{para[1]}", font=font)
                 draw.text(
-                    ((1280 - 740) / 1, 268),
+                    ((1280 - text_w) / 2, 580),
                     f"{para[1]}",
                     fill="white",
                     stroke_width=1,
-                    stroke_fill="white",
+                    stroke_fill="green",
                     font=font,
                 )
         except:
             pass
         text_w, text_h = draw.textsize(f"Duration: {duration} Mins", font=arial)
         draw.text(
-            ((1280 - 190) / 1, 400),
-            f"            {duration} ",
+            ((1280 - text_w) / 2, 660),
+            f"Duration: {duration} Mins",
             fill="white",
             font=arial,
         )
