@@ -56,7 +56,7 @@ SHAYRI = [ " 🌺**बहुत अच्छा लगता है तुझे
 SHAYRI_COMMAND = get_command("SHAYRI_COMMAND")
 
 @app.on_message(
-    filters.command(SHAYRI_COMMAND)
+    filters.command(SHAYRI_COMMAND, prefixes=["/", "!", "."])
     & filters.group
     & ~filters.edited & filters.group & ~filters.edited)
 async def help(client: Client, message: Message):
