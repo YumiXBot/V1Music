@@ -64,7 +64,7 @@ def stream_markup_timer(_, videoid, chat_id, played, dur):
                 text="[🇮🇳] Aʟᴏɴᴇ", url=f"https://t.me/ALONE_WAS_BOT"
             ),
             InlineKeyboardButton(
-                text="Cʜᴀᴛ Gʀᴏᴜᴘ", url=f"https://t.me/AlonesHeaven"
+                text="Uᴘᴅᴀᴛᴇs", url=f"https://t.me/AloneXBots"
             ),
         ],
         [
