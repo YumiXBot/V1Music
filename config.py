@@ -24,7 +24,7 @@ SONG_DOWNLOAD_DURATION = int(
 
 LOG_GROUP_ID = int(getenv("LOG_GROUP_ID",))
 
-MUSIC_BOT_NAME = getenv("MUSIC_BOT_NAME", "ᴀʟᴏɴᴇ x ᴍᴜsɪᴄ")
+MUSIC_BOT_NAME = getenv("MUSIC_BOT_NAME", "ᴧŁꪮɳᴇ ꭙ")
 
 OWNER_ID = list(
     map(int, getenv("OWNER_ID", "6079943111").split())
@@ -46,10 +46,10 @@ SUPPORT_GROUP = getenv(
 
 SUPPORT_HEHE = SUPPORT_GROUP.split("me/")[1]
 
-AUTO_LEAVING_ASSISTANT = getenv("AUTO_LEAVING_ASSISTANT", "False")
+AUTO_LEAVING_ASSISTANT = getenv("AUTO_LEAVING_ASSISTANT", "True")
 
 AUTO_LEAVE_ASSISTANT_TIME = int(
-    getenv("ASSISTANT_LEAVE_TIME", "5400")
+    getenv("ASSISTANT_LEAVE_TIME", "500")
 )
 
 AUTO_SUGGESTION_TIME = int(
